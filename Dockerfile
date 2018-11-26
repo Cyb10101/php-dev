@@ -2,7 +2,7 @@ FROM golang AS mhsendmail
 RUN go get github.com/mailhog/mhsendmail
 
 FROM webdevops/php-apache-dev:7.2
-
+LABEL maintainer="cyb10101@gmail.com"
 ARG DEBIAN_FRONTEND=noninteractive
 
 COPY --from=mhsendmail /go/bin/mhsendmail /home/application/go/bin/mhsendmail
