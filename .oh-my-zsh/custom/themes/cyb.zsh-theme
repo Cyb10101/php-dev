@@ -37,9 +37,6 @@ ZSH_THEME_GIT_PROMPT_UNMERGED="%{$fg[red]%} ="
 ZSH_THEME_GIT_PROMPT_AHEAD="%{$fg[cyan]%} ▴"
 ZSH_THEME_GIT_PROMPT_BEHIND="%{$fg[magenta]%} ▾"
 
-# More symbols to choose from:
-# ⚒ ⚑ ⚐ ♺ ♻ ✔ ✖ ✚ ✱ ✤ ✦ ❤ ➜ 𝝙
-
 # Colors vary depending on time lapsed.
 ZSH_THEME_GIT_TIME_SINCE_COMMIT_SHORT="%{$fg[green]%}"
 ZSH_THEME_GIT_TIME_SHORT_COMMIT_MEDIUM="%{$fg[yellow]%}"
@@ -57,40 +54,6 @@ cyb_get_space() {
         SPACES="$SPACES "
     done
     echo $SPACES
-}
-
-cyb_prompt_color_palette() {
-    local palette
-    palette=()
-
-    palette+="%{$FG[075]%}●"
-    palette+="%{$FG[111]%}●"
-    palette+="%{$FG[117]%}●"
-    palette+="%{$FG[105]%}●"
-    palette+="%{$FG[032]%}●"
-    palette+=" "
-
-    palette+="%{$FG[237]%}●"
-    palette+="%{$FG[103]%}●"
-    palette+="%{$FG[242]%}●"
-    palette+=" "
-
-    palette+="%{$FG[133]%}●"
-    palette+="%{$FG[124]%}●"
-    palette+="%{$FG[208]%}●"
-    palette+="%{$FG[214]%}●"
-    palette+=" "
-
-    palette+="%{$FG[148]%}●"
-    palette+="%{$FG[077]%}●"
-    palette+="%{$FG[118]%}●"
-    palette+="%{$FG[078]%}●"
-    palette+=" "
-
-    if [[ -n "$palette" ]]; then
-        palette+="%{$reset_color%}"
-    fi;
-    echo "$palette";
 }
 
 cyb_prompt_status() {
