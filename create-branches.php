@@ -26,6 +26,6 @@ foreach ($config as $branch => $FROM) {
     file_put_contents('Dockerfile', $dockerfile);
     exec('git add Dockerfile && git commit -m \'[BUILD] Set image version to '. $branch . ' with FROM ' . $FROM . '\'');
 }
-$branches = implode(' ', array_keys($this->config));
+$branches = implode(' ', array_keys($config));
 exec('git push -f --atomic origin $branches');
 exec('git checkout master -f');
