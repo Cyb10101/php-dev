@@ -1,7 +1,7 @@
 FROM golang AS mhsendmail
 RUN go get github.com/mailhog/mhsendmail
 
-FROM webdevops/php-apache-dev:7.2
+FROM webdevops/php-apache-dev:7.3
 COPY --from=mhsendmail /go/bin/mhsendmail /home/application/go/bin/mhsendmail
 
 RUN \
