@@ -27,5 +27,5 @@ foreach ($config as $branch => $FROM) {
     exec('git add Dockerfile && git commit -m \'[BUILD] Set image version to '. $branch . ' with FROM ' . $FROM . '\'');
 }
 $branches = implode(' ', array_keys($config));
-exec('git push -f --atomic origin $branches');
+exec('git push -f --atomic origin ' . $branches);
 exec('git checkout master -f');
