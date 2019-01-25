@@ -10,7 +10,7 @@ RUN \
     echo "deb http://deb.debian.org/debian stretch multiverse" >> /etc/apt/sources.list && \
     echo "deb http://deb.debian.org/debian stretch-updates multiverse" >> /etc/apt/sources.list && \
     apt-get update && \
-    apt-get install -y sudo less vim nano diffutils tree git-core bash-completion zsh htop && \
+    apt-get install -y sudo less vim nano diffutils tree git-core bash-completion zsh htop mysql-client && \
     rm -rf /var/lib/apt/lists/* && \
     usermod -aG sudo application && \
     echo "%sudo ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
