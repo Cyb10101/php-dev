@@ -6,4 +6,4 @@ bashCompletion
 addAlias
 addDockerAlias
 
-export PATH=${PATH}:./bin:./vendor/bin:./node_modules/.bin
+export PATH=${PATH}:~/.composer/vendor/bin:./bin:./vendor/bin:./node_modules/.bin
