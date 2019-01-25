@@ -35,6 +35,8 @@ services:
       - WEB_DOCUMENT_ROOT=/app/public
       - PHP_DISMOD=ioncube
       - PHP_SENDMAIL_PATH="/home/application/go/bin/mhsendmail --smtp-addr=global-mail:1025"
+
+      - php.error_reporting=32767
       - php.display_errors=1
 
       - php.xdebug.cli_color=1
