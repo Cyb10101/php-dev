@@ -57,6 +57,11 @@ services:
       - CERT_NAME=default
       # SSL: Do not a redirect in global-nginx-proxy, if you use another port than 443
       - HTTPS_METHOD=noredirect
+
+      # Use Context if you want, overridden bei env_file
+      - WWW_CONTEXT=${WWW_CONTEXT:-Development/Docker}
+      - TYPO3_CONTEXT=${TYPO3_CONTEXT:-Development/Docker}
+      - FLOW_CONTEXT=${FLOW_CONTEXT:-Development/Docker}
     working_dir: /app
 
   node:
