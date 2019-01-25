@@ -66,6 +66,8 @@ networks:
       name: global
 ```
 
+# Documentation
+
 ## ImageMagick & GraphicMagick included in PHP
 
 If you need ImageMagick or GraphicMagick as a PHP module, you need to install and activate it.
