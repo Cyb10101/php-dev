@@ -14,7 +14,9 @@ version: '3.5'
 
 services:
   web:
-    restart: always
+    # Restart if aborted or start after reboot
+    #restart: always
+
     #build: php-dev
     image: cyb10101/php-dev:apache-7.3
 
