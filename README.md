@@ -39,15 +39,19 @@ services:
       - php.error_reporting=32767
       - php.display_errors=1
 
-      - php.xdebug.cli_color=1
-      - php.xdebug.idekey=PHPSTORM
-      - php.xdebug.max_nesting_level=400
-      - php.xdebug.remote_enable=On
-      - php.xdebug.remote_connect_back=On
-      #- php.xdebug.remote_host=192.168.178.123
-      - php.xdebug.remote_port=9000
-      - php.xdebug.remote_autostart=On
-      - php.xdebug.remote_log=/tmp/xdebug.log
+      # PHP_DEBUGGER: xdebug, blackfire or none
+      - PHP_DEBUGGER=${PHP_DEBUGGER:-none}
+      - XDEBUG_REMOTE_HOST=${XDEBUG_REMOTE_HOST:-}
+      - XDEBUG_REMOTE_PORT=${XDEBUG_REMOTE_PORT:-9000}
+      - php.xdebug.idekey=${XDEBUG_IDEKEY:-PHPSTORM}
+      - php.xdebug.remote_log=${XDEBUG_REMOTE_LOG:-/tmp/xdebug.log}
+      - php.xdebug.cli_color=${XDEBUG_CLI_COLOR:-1}
+      - php.xdebug.max_nesting_level=${XDEBUG_MAX_NESTING_LEVEL:-400}
+      - php.xdebug.remote_enable=${XDEBUG_REMOTE_ENABLE:-On}
+      - XDEBUG_REMOTE_CONNECT_BACK=${XDEBUG_REMOTE_CONNECT_BACK:-On}
+      - XDEBUG_REMOTE_AUTOSTART=${XDEBUG_REMOTE_AUTOSTART:-On}
+      - BLACKFIRE_SERVER_ID=${BLACKFIRE_SERVER_ID:-}
+      - BLACKFIRE_SERVER_TOKEN=${BLACKFIRE_SERVER_TOKEN:-}
 
       # SSL: Use default cert from global-nginx-proxy
       - CERT_NAME=default
