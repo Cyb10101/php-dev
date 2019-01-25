@@ -33,7 +33,7 @@ COPY .oh-my-zsh/custom/themes/cyb.zsh-theme /root/.oh-my-zsh/custom/themes/
 
 # Configure user
 USER application
-RUN composer global require hirak/prestissimo
+RUN composer global require hirak/prestissimo davidrjonas/composer-lock-diff
 
 RUN cat /tmp/docker-files/.bashrc-additional.sh >> ~/.bashrc && \
     git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
