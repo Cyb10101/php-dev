@@ -31,7 +31,15 @@ services:
     env_file:
       - .env
     environment:
-      - VIRTUAL_HOST=~^(.+\.)?docker-website\.vm$$
+      # domain.vm, *.domain.vm
+      - VIRTUAL_HOST=~^(.+\.)?docker-website\.(vm|vmd)$$
+
+      # domain.vm, www.domain.vm
+      #- VIRTUAL_HOST=~^(www\.)?docker-website\.(vm|vmd)$$
+
+      # subdomain.domain.vm
+      #- VIRTUAL_HOST=~^subdomain\.docker-website\.(vm|vmd)$$
+
       - WEB_DOCUMENT_ROOT=/app/public
       - PHP_DISMOD=ioncube
       - PHP_SENDMAIL_PATH="/home/application/go/bin/mhsendmail --smtp-addr=global-mail:1025"
