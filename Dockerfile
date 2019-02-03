@@ -2,7 +2,7 @@ FROM webdevops/php-apache-dev:7.3
 
 RUN \
     apt-get update && \
-    apt-get install -y sudo curl less vim nano diffutils tree git-core bash-completion zsh htop mysql-client iputils-ping && \
+    apt-get install -y sudo less vim nano diffutils tree git-core bash-completion zsh htop mysql-client iputils-ping && \
     rm -rf /var/lib/apt/lists/* && \
     usermod -aG sudo application && \
     echo "%sudo ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
