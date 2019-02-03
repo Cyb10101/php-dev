@@ -11,7 +11,7 @@ RUN \
 
 COPY .bashrc-additional.sh /tmp/docker-files/
 COPY apache/apache.conf /opt/docker/etc/httpd/vhost.common.d/
-COPY entrypoint.d/entrypoint-cyb.sh /entrypoint.d/
+COPY entrypoint.d/* /entrypoint.d/
 
 RUN curl -fsSL https://get.docker.com/ | sh
 
