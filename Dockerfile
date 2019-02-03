@@ -1,12 +1,8 @@
-FROM golang AS mhsendmail
-RUN go get github.com/mailhog/mhsendmail
-
 FROM webdevops/php-apache-dev:7.3
-COPY --from=mhsendmail /go/bin/mhsendmail /home/application/go/bin/mhsendmail
 
 RUN \
     apt-get update && \
-    apt-get install -y sudo less vim nano diffutils tree git-core bash-completion zsh htop mysql-client iputils-ping && \
+    apt-get install -y sudo curl less vim nano diffutils tree git-core bash-completion zsh htop mysql-client iputils-ping && \
     rm -rf /var/lib/apt/lists/* && \
     usermod -aG sudo application && \
     echo "%sudo ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
@@ -18,6 +14,10 @@ COPY apache/apache.conf /opt/docker/etc/httpd/vhost.common.d/
 COPY entrypoint.d/entrypoint-cyb.sh /entrypoint.d/
 
 RUN curl -fsSL https://get.docker.com/ | sh
+
+RUN curl -o /usr/local/bin/mhsendmail -SL "https://github.com/mailhog/mhsendmail/releases/download/v0.2.0/mhsendmail_linux_$(dpkg --print-architecture)" && \
+    chmod +x /usr/local/bin/mhsendmail
+ENV PHP_SENDMAIL_PATH="'/usr/local/bin/mhsendmail --smtp-addr=global-mail:1025'"
 
 # Configure root
 RUN cat /tmp/docker-files/.bashrc-additional.sh >> ~/.bashrc && \
