@@ -5,10 +5,6 @@ FROM webdevops/php-apache-dev:7.3
 COPY --from=mhsendmail /go/bin/mhsendmail /home/application/go/bin/mhsendmail
 
 RUN \
-    echo "deb http://deb.debian.org/debian stretch universe" >> /etc/apt/sources.list && \
-    echo "deb http://deb.debian.org/debian stretch-updates universe" >> /etc/apt/sources.list && \
-    echo "deb http://deb.debian.org/debian stretch multiverse" >> /etc/apt/sources.list && \
-    echo "deb http://deb.debian.org/debian stretch-updates multiverse" >> /etc/apt/sources.list && \
     apt-get update && \
     apt-get install -y sudo less vim nano diffutils tree git-core bash-completion zsh htop mysql-client && \
     rm -rf /var/lib/apt/lists/* && \
