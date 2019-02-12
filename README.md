@@ -28,8 +28,6 @@ services:
       - ~/.composer/cache:/home/application/.composer/cache
       - ~/.gitconfig:/home/application/.gitconfig:ro
 
-    env_file:
-      - .env
     environment:
       # domain.vm, *.domain.vm
       - VIRTUAL_HOST=~^(.+\.)?docker-website\.(vm|vmd)$$
