@@ -1,4 +1,4 @@
-source ~/.shell-methods
+source ~/.shell-methods.sh
 sshAgentRestart
 sshAgentAddKey 7d ~/.ssh/id_rsa
 stylePS1
