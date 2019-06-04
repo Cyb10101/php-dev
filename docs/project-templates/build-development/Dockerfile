@@ -1,9 +1,9 @@
-FROM pluswerk/php-dev:nginx-7.2
+FROM cyb10101/php-dev:nginx-7.2
 
 RUN rm -rf /var/lib/apt/lists/* && \
-  apt-get update && \
-  apt-get install -y nginx-extras && \
-  rm -rf /var/lib/apt/lists/*
+    apt-get update && \
+    apt-get install -y nginx-extras && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY fancyindexing/ /opt/fancyindexing/
 
