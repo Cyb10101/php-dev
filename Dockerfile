@@ -11,7 +11,6 @@ RUN \
     echo "%sudo ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
     update-alternatives --set editor /usr/bin/vim.basic && \
     curl -fsSL https://get.docker.com/ | sh && \
-    rm -rf /var/lib/apt/lists/* && \
     mkdir /tmp/docker-files
 
 COPY .bashrc-additional.sh /tmp/docker-files/
@@ -51,3 +50,6 @@ RUN if [ -f /etc/apache2/envvars ]; then sed -i 's/export APACHE_RUN_USER=www-da
 RUN if [ -f /etc/apache2/envvars ]; then sed -i 's/export APACHE_RUN_GROUP=www-data/export APACHE_RUN_GROUP=application/g' /etc/apache2/envvars ; fi
 # set nginx user group to application:
 RUN if [ -f /etc/nginx/nginx.conf ]; then sed -i 's/user www-data;/user application application;/g' /etc/nginx/nginx.conf ; fi
+
+# Cleanup
+RUN rm -rf /var/lib/apt/lists/*
