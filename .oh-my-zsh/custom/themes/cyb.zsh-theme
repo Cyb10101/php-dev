@@ -99,7 +99,8 @@ precmd() {
     else
         _USERNAME="%{$fg_bold[green]%}%n%{$reset_color%}"
     fi
-    _HOSTNAME="%{$fg_bold[blue]%}%m%{$reset_color%}"
+    #_HOSTNAME="%{$fg_bold[blue]%}%m%{$reset_color%}"
+    _HOSTNAME="%{$fg_bold[blue]%}$DOCKER_COMPOSE_PROJECT%{$reset_color%}"
     _PATH="%~"
     _TIME="%T"
 
