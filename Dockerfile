@@ -1,4 +1,5 @@
-FROM webdevops/php-nginx-dev:7.3
+ARG FROM=webdevops/php-apache-dev:7.3
+FROM $FROM
 
 # Bugfix apt cleanup
 RUN rm -rf /var/lib/apt/lists/*
