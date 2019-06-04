@@ -5,6 +5,11 @@
 To use this Docker image you still need this repository:
 [pluswerk/docker-global](https://github.com/pluswerk/docker-global).
 
+More information:
+
+* [webdevops/Dockerfile](https://github.com/webdevops/Dockerfile)
+* [pluswerk/php-dev](https://github.com/pluswerk/php-dev)
+
 ## Docker compose
 
 Example File: docker-compose.yaml
@@ -40,7 +45,6 @@ services:
 
       - WEB_DOCUMENT_ROOT=/app/public
       - PHP_DISMOD=ioncube
-      - PHP_SENDMAIL_PATH="/home/application/go/bin/mhsendmail --smtp-addr=global-mail:1025"
 
       - php.error_reporting=32767
       - php.display_errors=1

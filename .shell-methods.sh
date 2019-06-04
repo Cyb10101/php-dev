@@ -48,9 +48,9 @@ function sshAgentAddKeyOld {
 
 # Style bash prompt
 function stylePS1 {
-    PS1='$(userTerminalTitlePwd)\[\e[0;36m\][$(userColorUser)\u\[\e[0;36m\]@\[\e[1;34m\]\h\[\e[0;36m\]: \[\e[0m\]\w\[\e[0;36m\]]\[\e[0;36m\]> $(userColorUser)\n\$\[\e[0m\] ';
+    PS1='$(userTerminalTitlePwd)\[\e[0;36m\][$(userColorUser)\u\[\e[0;36m\]@\[\e[1;34m\]$DOCKER_COMPOSE_PROJECT\[\e[0;36m\]: \[\e[0m\]\w\[\e[0;36m\]]\[\e[0;36m\]> $(userColorUser)\n\$\[\e[0m\] ';
     if [ -f $(which git) ]; then
-        PS1='$(userTerminalTitlePwd)\[\e[0;36m\][$(userColorUser)\u\[\e[0;36m\]@\[\e[1;34m\]\h\[\e[0;36m\]: \[\e[0m\]\w\[\e[0;36m\]]\[\e[0;33m\]$(__git_ps1)\[\e[0;36m\]> $(userColorUser)\n\$\[\e[0m\] ';
+        PS1='$(userTerminalTitlePwd)\[\e[0;36m\][$(userColorUser)\u\[\e[0;36m\]@\[\e[1;34m\]$DOCKER_COMPOSE_PROJECT\[\e[0;36m\]: \[\e[0m\]\w\[\e[0;36m\]]\[\e[0;33m\]$(__git_ps1)\[\e[0;36m\]> $(userColorUser)\n\$\[\e[0m\] ';
     fi
 }
 
@@ -95,4 +95,6 @@ function addDockerAlias {
     alias node='sudo docker exec -u $(id -u):$(id -g) -w $(pwd) -it ${NODE_CONTAINER} node'
     alias npm='sudo docker exec -u $(id -u):$(id -g) -w $(pwd) -it ${NODE_CONTAINER} npm'
     alias yarn='sudo docker exec -u $(id -u):$(id -g) -w $(pwd) -it ${NODE_CONTAINER} yarn'
+    alias node_exec='sudo docker exec -u $(id -u):$(id -g) -w $(pwd) -it ${NODE_CONTAINER}'
+    alias node_root_exec='sudo docker exec -w $(pwd) -it ${NODE_CONTAINER}'
 }
