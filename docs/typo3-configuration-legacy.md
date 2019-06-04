@@ -1,0 +1,25 @@
+# TYPO3 configuration
+
+For TYPO3 <= 7
+
+## AdditionalConfiguration.php example
+
+```php
+<?php
+if ($_SERVER['TYPO3_CONTEXT'] === 'Development/docker') {
+    $GLOBALS['TYPO3_CONF_VARS']['MAIL']['transport'] = 'mail';
+    $GLOBALS['TYPO3_CONF_VARS']['DB']['host'] = getenv('typo3DatabaseHost') ?: 'global-db';
+    $GLOBALS['TYPO3_CONF_VARS']['DB']['port'] = getenv('typo3DatabasePort') ?: '3306';
+    $GLOBALS['TYPO3_CONF_VARS']['DB']['user'] = getenv('typo3DatabaseUsername') ?: 'root';
+    $GLOBALS['TYPO3_CONF_VARS']['DB']['password'] = getenv('typo3DatabasePassword') ?: 'root';
+    $GLOBALS['TYPO3_CONF_VARS']['DB']['database'] = getenv('typo3DatabaseName') ?: 'default_database';
+
+    // If you have a special domain
+    $vmNumber = getenv('VM_NUMBER');
+    if (!preg_match('/\d+/', $vmNumber)) {
+        throw new \Exception('env VM_NUMBER needed! it must be an int!');
+    }
+    $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['xyz_search']['domainA'] = sprintf('project.vm%d.example.org', $vmNumber);
+    $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['xyz_search']['domainB'] = sprintf('en.project.vm%d.example.org', $vmNumber);
+}
+```
