@@ -2,7 +2,7 @@
 
 In most cases, you do not need this. But for some projects it is quite useful.
 
-You make a docker-compose.yml, but instead of loading an image, you build your own.
+You make a docker-compose.yaml, but instead of loading an image, you build your own.
 
 ## Build development
 
@@ -15,7 +15,7 @@ Copy the folder build-development into your project folder and change this in yo
 services:
   web:
     build: build-development
-    #image: pluswerk/php-dev:nginx-7.2 (or simply remove this line)
+    #image: cyb10101/php-dev:nginx-7.2 (or simply remove this line)
     environment:
       - VIRTUAL_HOST=~^(.+\.)?development\.(vm|vmd)$$
       - WEB_DOCUMENT_ROOT=/app
