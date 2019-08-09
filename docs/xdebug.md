@@ -1,13 +1,15 @@
 # Xdebug
 
-You can set the default value for the PHP_DEBUGGER int your `.env` file:
+You can set the default value for the PHP_DEBUGGER in your `.env` file:
 
 ```env
 PHP_DEBUGGER=xdebug
 XDEBUG_REMOTE_HOST=192.168.178.123
 ```
 
-Where `XDEBUG_REMOTE_HOST` is the ip of your IDE.
+`XDEBUG_REMOTE_HOST` is the ip-address of your IDE.
+
+Information on how to set up xdebug with PHPStorm is here: [Creating a PHP Debug Server](https://www.jetbrains.com/help/phpstorm/creating-a-php-debug-server-configuration.html)
 
 ## Enable and disable xdebug in running container
 
@@ -27,8 +29,7 @@ PHP_IDE_CONFIG="serverName=Unnamed" XDEBUG_CONFIG="remote_enable=1" php #...
 ````
 
 WEB:
-We recomand usage of a enable & disable tool like [Xdebug helper](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc.)
-
+We recommend the usage of an enable-disable [Xdebug helper](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc.)
 
 ### Listening for PHP Debug Sessions
 

@@ -1,7 +1,7 @@
 # PHP Webserver Development
 
-PHP-DEV is a small package that includes a web server, PHP and some tools needed to develop a web page.
-You can easily decide with a docker-compose.yaml which PHP version you want and if you want to start an Apache or a Nginx webserver.
+PHP-DEV is a small package that includes a web server, PHP and some tools needed to develop a web application.
+You can easily decide with a docker-compose.yaml which PHP version you want and whether you want to start an Apache or a Nginx webserver.
 We recommend to use [pluswerk/docker-global](https://github.com/pluswerk/docker-global) as a wrapper for your projects since this Dockerfile has been build by keeping that in mind.
 
 ## Docker compose
@@ -25,6 +25,7 @@ services:
 
     volumes:
       - .:/app
+      # Note: The docker socket is optional if no node container is needed
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ~/.ssh:/home/application/.ssh:ro
       # Note: /home/application/.ssh will be copied to /root/.ssh if is empty or not exists
@@ -40,7 +41,6 @@ services:
 
       # subdomain.domain.vm
       #- VIRTUAL_HOST=~^subdomain\.docker-website\.(vm|vmd)$$
-
 
       #- VIRTUAL_PROTO=https
       #- VIRTUAL_PORT=443
@@ -67,15 +67,12 @@ services:
       # SSL: Do not a redirect in global-nginx-proxy, if you use another port than 443
       - HTTPS_METHOD=noredirect
 
-      # Use Context if you want, overridden bei env_file
+      # Project environment variables (enable what you need)
       - WWW_CONTEXT=${WWW_CONTEXT:-Development/Docker}
       - TYPO3_CONTEXT=${TYPO3_CONTEXT:-Development/Docker}
       - FLOW_CONTEXT=${FLOW_CONTEXT:-Development/Docker}
-
-      # Project Env vars (enable what you need)
       #- APP_ENV=development_docker
       #- PIMCORE_ENVIRONMENT=development_docker
-      #- TYPO3_CONTEXT=Development/docker
 
       # Don't forget to connect via ./start.sh
       - APPLICATION_UID=${APPLICATION_UID:-1000}
