@@ -14,6 +14,9 @@ if ($_SERVER['TYPO3_CONTEXT'] === 'Development/docker') {
     $GLOBALS['TYPO3_CONF_VARS']['DB']['password'] = getenv('typo3DatabasePassword') ?: 'root';
     $GLOBALS['TYPO3_CONF_VARS']['DB']['database'] = getenv('typo3DatabaseName') ?: 'default_database';
 
+    $GLOBALS['TYPO3_CONF_VARS']['SYS']['trustedHostsPattern'] = '.*';
+    $_SERVER['HTTPS'] = $_SERVER['HTTP_X_FORWARDED_SSL'] ? $_SERVER['HTTP_X_FORWARDED_SSL'] : ($_SERVER['HTTPS'] ? $_SERVER['HTTPS'] : 'off');
+
     // If you have a special domain
     $vmNumber = getenv('VM_NUMBER');
     if (!preg_match('/\d+/', $vmNumber)) {
