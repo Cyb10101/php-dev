@@ -16,6 +16,7 @@ The base Docker Images are [webdevops/php-apache-dev] and [webdevops/php-nginx-d
 * [Environment variables](docs/environment-variables.md)
 * [XDebug](xdebug.md)
 * [Project templates](project-templates.md)
+* [Fix special user permissions](fix-special-user-permissions.md)
 
 ## Mail
 
