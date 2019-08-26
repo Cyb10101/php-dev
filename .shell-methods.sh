@@ -130,9 +130,9 @@ function addDockerAlias {
         alias node_exec='sudo docker exec -u $(id -u):$(id -g) -w $(pwd) -it ${NODE_CONTAINER}'
         alias node_root_exec='sudo docker exec -w $(pwd) -it ${NODE_CONTAINER}'
 
-        alias node="node_exec node"
-        alias npm="node_exec npm"
-        alias npx="node_exec npx"
-        alias yarn="node_exec yarn"
+        alias node='node_exec node'
+        alias npm='node_exec npm'
+        alias npx='node_exec npx'
+        alias yarn='node_exec yarn'
     fi
 }
