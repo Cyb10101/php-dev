@@ -74,9 +74,9 @@ services:
       #- APP_ENV=development_docker
       #- PIMCORE_ENVIRONMENT=development_docker
 
-      # Don't forget to connect via ./start.sh
-      - APPLICATION_UID=${APPLICATION_UID:-1000}
-      - APPLICATION_GID=${APPLICATION_GID:-1000}
+      # Fix special user permissions (only if user id not 1000)
+      - APPLICATION_UID_OVERRIDE=${APPLICATION_UID_OVERRIDE:-1000}
+      - APPLICATION_GID_OVERRIDE=${APPLICATION_GID_OVERRIDE:-1000}
     working_dir: /app
 
   node:

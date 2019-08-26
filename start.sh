@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+# Fix special user permissions
+if [ "$(id -u)" != "1000" ]; then
+    grep -q '^APPLICATION_UID_OVERRIDE=' .env && sed -i 's/^APPLICATION_UID_OVERRIDE=.*/APPLICATION_UID_OVERRIDE='$(id -u)'/' .env || echo 'APPLICATION_UID_OVERRIDE='$(id -u) >> .env
+    grep -q '^APPLICATION_GID_OVERRIDE=' .env && sed -i 's/^APPLICATION_GID_OVERRIDE=.*/APPLICATION_GID_OVERRIDE='$(id -g)'/' .env || echo 'APPLICATION_GID_OVERRIDE='$(id -g) >> .env
+fi;
+
 function startFunction {
     case ${1} in
         start)
@@ -9,22 +15,22 @@ function startFunction {
             startFunction login
         ;;
         up)
-            APPLICATION_UID=$(id -u) APPLICATION_GID=$(id -g) docker-compose up -d
+            docker-compose up -d
         ;;
         down)
             docker-compose down --remove-orphans
         ;;
         login)
-            docker-compose exec -u $(id -u):$(id -g) web bash
+            startFunction zsh
         ;;
         bash)
-            docker-compose exec -u $(id -u):$(id -g) web bash
+            docker-compose exec -u $(id -u) web bash
         ;;
         zsh)
-            docker-compose exec -u $(id -u):$(id -g) web zsh
+            docker-compose exec -u $(id -u) web zsh
         ;;
         *)
-            APPLICATION_UID=$(id -u) APPLICATION_GID=$(id -g) docker-compose "${@:1}"
+            docker-compose "${@:1}"
         ;;
     esac
 }
