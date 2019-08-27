@@ -4,11 +4,32 @@ PHP-DEV is a small package that includes a web server, PHP and some tools needed
 You can easily decide with a docker-compose.yaml which PHP version you want and whether you want to start an Apache or a Nginx webserver.
 We recommend to use [pluswerk/docker-global](https://github.com/pluswerk/docker-global) as a wrapper for your projects since this Dockerfile has been build by keeping that in mind.
 
+## Documentation
+
+* [Nginx Reverse Proxy](docs/nginx-reverse-proxy.md)
+* [TYPO3 configuration >=8](docs/typo3-configuration.md)
+* [TYPO3 configuration <=7](docs/typo3-configuration-legacy.md)
+* [Change docker project name](docs/docker-project-name.md)
+* [ImageMagick or GraphicMagick](docs/magick.md)
+* [Environment variables](docs/docs/environment-variables.md)
+* [XDebug](docs/xdebug.md)
+* [Project templates](docs/project-templates.md)
+* [Fix special user permissions](docs/fix-special-user-permissions.md)
+* [Mail](docs/mail.md)
+* [Vulnerabilities](docs/vulnerabilities.md)
+
+### Further topics
+
+* [webdevops/php-apache-dev](https://hub.docker.com/r/webdevops/php-apache-dev)
+* [webdevops/php-nginx-dev](https://hub.docker.com/r/webdevops/php-nginx-dev)
+* [webdevops/Dockerfile](https://github.com/webdevops/Dockerfile)
+* [pluswerk/php-dev](https://github.com/pluswerk/php-dev)
+
 ## Docker compose
 
 This is an example of a docker-compose.yaml file.
 It is enough to put this file into the project, configure it and start the Docker container.
-Further information can be found in the [documentation].
+Further information can be found in the documentation.
 
 Example file: docker-compose.yaml
 
@@ -92,18 +113,9 @@ networks:
       name: global
 ```
 
-## Documentation
-
-* See the [documentation] for more information.
-* [webdevops/Dockerfile](https://github.com/webdevops/Dockerfile)
-* [pluswerk/php-dev](https://github.com/pluswerk/php-dev)
-
 ## Setup
 
 Create a docker-compose.yaml like the one from above.
 Change all your settings. Mainly the `VIRTUAL_HOST`, `WEB_DOCUMENT_ROOT` and maybe the application context.
 
 Then you can copy the [start.sh](start.sh) into your project and start it.
-
-[documentation]: docs/index.md
-
