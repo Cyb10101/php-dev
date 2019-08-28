@@ -16,6 +16,7 @@ RUN \
 COPY .bashrc-additional.sh /tmp/docker-files/
 COPY apache/apache.conf /opt/docker/etc/httpd/vhost.common.d/
 COPY entrypoint.d/* /entrypoint.d/
+COPY bin/* /usr/local/bin/
 
 # Configure root
 RUN cat /tmp/docker-files/.bashrc-additional.sh >> ~/.bashrc && \
