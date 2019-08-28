@@ -99,8 +99,14 @@ precmd() {
     else
         _USERNAME="%{$fg_bold[green]%}%n%{$reset_color%}"
     fi
+
+    VAR_HOSTNAME=`hostname`
+    if [ ! -z "$DOCKER_COMPOSE_PROJECT" ] || [ "$DOCKER_COMPOSE_PROJECT" != "" ]; then
+        VAR_HOSTNAME="${DOCKER_COMPOSE_PROJECT}"
+    fi;
+
     #_HOSTNAME="%{$fg_bold[blue]%}%m%{$reset_color%}"
-    _HOSTNAME="%{$fg_bold[blue]%}$DOCKER_COMPOSE_PROJECT%{$reset_color%}"
+    _HOSTNAME="%{$fg_bold[blue]%}$VAR_HOSTNAME%{$reset_color%}"
     _PATH="%~"
     _TIME="%T"
 

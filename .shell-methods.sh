@@ -74,7 +74,7 @@ function sshAgentAddKeyOld {
 # Style bash prompt
 function stylePS1 {
     VAR_HOSTNAME=`hostname`
-    if [ ! -z "$1" ]; then
+    if [ ! -z "$1" ] || [ "$1" != "" ]; then
         VAR_HOSTNAME="${1}"
     fi;
 
@@ -120,19 +120,10 @@ function addAlias {
     alias less='less -FSRX'
 }
 
-function addDockerAlias {
+function addDockerVariables {
     CONTAINER_ID=$(basename $(cat /proc/1/cpuset))
 
     if test -S "/var/run/docker.sock"; then
         DOCKER_COMPOSE_PROJECT=$(sudo docker inspect ${CONTAINER_ID} | grep '"com.docker.compose.project":' | awk '{print $2}' | tr --delete '"' | tr --delete ',')
-        NODE_CONTAINER=$(sudo docker ps -f "name=${DOCKER_COMPOSE_PROJECT}_node_1" --format {{.Names}})
-
-        alias node_exec='sudo docker exec -u $(id -u):$(id -g) -w $(pwd) -it ${NODE_CONTAINER}'
-        alias node_root_exec='sudo docker exec -w $(pwd) -it ${NODE_CONTAINER}'
-
-        alias node='node_exec node'
-        alias npm='node_exec npm'
-        alias npx='node_exec npx'
-        alias yarn='node_exec yarn'
     fi
 }
