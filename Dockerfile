@@ -16,12 +16,13 @@ RUN \
 COPY .bashrc-additional.sh /tmp/docker-files/
 COPY apache/apache.conf /opt/docker/etc/httpd/vhost.common.d/
 COPY entrypoint.d/* /entrypoint.d/
+COPY bin/* /usr/local/bin/
 
 # Configure root
 RUN cat /tmp/docker-files/.bashrc-additional.sh >> ~/.bashrc && \
     git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 
-COPY .shell-methods.sh audit.sh .vimrc .zshrc /root/
+COPY .shell-methods.sh .vimrc .zshrc /root/
 COPY .oh-my-zsh/custom/plugins/ssh-agent/ssh-agent.plugin.zsh /root/.oh-my-zsh/custom/plugins/ssh-agent/
 COPY .oh-my-zsh/custom/themes/cyb.zsh-theme /root/.oh-my-zsh/custom/themes/
 
@@ -33,7 +34,7 @@ USER application
 RUN cat /tmp/docker-files/.bashrc-additional.sh >> ~/.bashrc && \
     composer global require hirak/prestissimo davidrjonas/composer-lock-diff
 
-COPY .shell-methods.sh audit.sh .vimrc .zshrc /home/application/
+COPY .shell-methods.sh .vimrc .zshrc /home/application/
 COPY .oh-my-zsh/custom/plugins/ssh-agent/ssh-agent.plugin.zsh /home/application/.oh-my-zsh/custom/plugins/ssh-agent/
 COPY .oh-my-zsh/custom/themes/cyb.zsh-theme /home/application/.oh-my-zsh/custom/themes/
 
