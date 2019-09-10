@@ -1,9 +1,8 @@
 # PHP Webserver Development
 
 PHP-DEV is a small package that includes a web server, PHP and some tools needed to develop a web application.
-You can easily decide with a docker-compose.yaml which PHP version you want and whether you want to start an Apache or a Nginx webserver.
-We recommend to use [pluswerk/docker-global](https://github.com/pluswerk/docker-global) as a wrapper for your projects since this Dockerfile has been build by keeping that in mind.
-
+You can easily decide which version of PHP you want to use and whether you want to start an Apache or a Nginx webserver by setting the values in a docker-compose.yml.
+We recommend using [Cyb10101/docker-global](https://github.com/Cyb10101/docker-global) as a wrapper for your projects, since this Dockerfile has been built keeping that in mind.
 ## Documentation
 
 * [Nginx Reverse Proxy](docs/nginx-reverse-proxy.md)
@@ -115,7 +114,7 @@ networks:
 
 ## Setup
 
-Create a docker-compose.yaml like the one from above.
+Create a docker-compose.yaml like shown above.
 Change all your settings. Mainly the `VIRTUAL_HOST`, `WEB_DOCUMENT_ROOT` and maybe the application context.
 
 Then you can copy the [start.sh](start.sh) into your project and start it.
