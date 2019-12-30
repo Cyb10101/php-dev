@@ -41,7 +41,7 @@ services:
     #restart: always
 
     #build: php-dev
-    image: cyb10101/php-dev:apache-7.3
+    image: cyb10101/php-dev:apache-7.4
 
     volumes:
       - .:/app

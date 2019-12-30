@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace Pluswerk;
 
-final class UpdateDockerHubSettings
-{
-    public function __construct()
-    {
+final class UpdateDockerHubSettings {
+    public function __construct() {
         $buildSettings = $this->generateBuildSettings();
 
         $options = [
@@ -31,11 +29,10 @@ final class UpdateDockerHubSettings
         echo $result . "\n" . 'DONE' . "\n";
     }
 
-    private function generateBuildSettings(): array
-    {
+    private function generateBuildSettings(): array {
         $buildSettings = [];
         foreach (['apache', 'nginx'] as $webServer) {
-            foreach (['5.6', '7.0', '7.1', '7.2', '7.3'] as $phpVersions) {
+            foreach (['5.6', '7.0', '7.1', '7.2', '7.3', '7.4'] as $phpVersions) {
                 $buildSettings[] = [
                     'source_type' => 'Branch',
                     'tag' => $webServer . '-' . $phpVersions,
@@ -50,8 +47,7 @@ final class UpdateDockerHubSettings
         return $buildSettings;
     }
 
-    private function getUserPwd(): string
-    {
+    private function getUserPwd(): string {
         if (file_exists('.env')) {
             $lines = explode("\n", file_get_contents('.env'));
             foreach ($lines as $line) {
@@ -70,8 +66,7 @@ final class UpdateDockerHubSettings
      * @param array $options
      * @return bool|string
      */
-    protected function curlExec(array $options)
-    {
+    protected function curlExec(array $options) {
         try {
             $curl = curl_init();
             curl_setopt_array($curl, $options);

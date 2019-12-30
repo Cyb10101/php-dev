@@ -1,4 +1,4 @@
-ARG FROM=webdevops/php-apache-dev:7.3
+ARG FROM=webdevops/php-apache-dev:7.4
 FROM $FROM
 
 # Bugfix apt cleanup
