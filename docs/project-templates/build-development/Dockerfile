@@ -1,9 +1,9 @@
-FROM cyb10101/php-dev:nginx-7.2
+FROM cyb10101/php-dev:nginx-7.4
 
 RUN apt-get update && \
     apt-get install -y nginx-extras
 
-COPY fancyindexing/ /opt/fancyindexing/
+COPY fancyindexing/ /opt/.fancyindexing/
 
 COPY nginx_vhost.conf /opt/docker/etc/nginx/vhost.conf
 COPY nginx_10-location-root.conf /opt/docker/etc/nginx/vhost.common.d/10-location-root.conf
