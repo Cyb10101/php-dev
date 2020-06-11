@@ -163,7 +163,7 @@ if (!in_array($c, ['M', 'S', 'D'])) {
     </style>
     <script src="/.fancyindexing/jquery.min.js"></script>
     <script>
-    $(function() {
+    jQuery(function($) {
         $('#directory_title').html(document.title);
 
         $('tr').each(function() {
