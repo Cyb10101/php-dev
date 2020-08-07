@@ -1,6 +1,12 @@
 ARG FROM=webdevops/php-apache-dev:7.4
 FROM $FROM
 
+ENV \
+    POSTFIX_RELAYHOST="[global-mail]:1025" \
+    PHP_DISMOD="ioncube" \
+    PHP_DISPLAY_ERRORS="1" \
+    PHP_MEMORY_LIMIT="-1"
+
 # Bugfix apt cleanup
 RUN rm -rf /var/lib/apt/lists/*
 
@@ -42,12 +48,6 @@ USER root
 
 # Set user permissions
 RUN chown -R application:application /home/application
-
-ENV \
-    POSTFIX_RELAYHOST="[global-mail]:1025" \
-    PHP_DISMOD="ioncube" \
-    PHP_DISPLAY_ERRORS="1" \
-    PHP_MEMORY_LIMIT="-1"
 
 # set apache user group to application:
 RUN if [ -f /etc/apache2/envvars ]; then sed -i 's/export APACHE_RUN_USER=www-data/export APACHE_RUN_USER=application/g' /etc/apache2/envvars ; fi

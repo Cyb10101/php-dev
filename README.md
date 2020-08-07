@@ -13,7 +13,7 @@ We recommend using [Cyb10101/docker-global](https://github.com/Cyb10101/docker-g
 * [Environment variables](docs/docs/environment-variables.md)
 * [XDebug](docs/xdebug.md)
 * [Project templates](docs/project-templates.md)
-* [Fix special user permissions](docs/fix-special-user-permissions.md)
+* [Set user and group id](docs/set-user-and-group-id.md)
 * [Mail](docs/mail.md)
 * [Vulnerabilities](docs/vulnerabilities.md)
 
@@ -94,9 +94,9 @@ services:
       #- APP_ENV=development_docker
       #- PIMCORE_ENVIRONMENT=development_docker
 
-      # Fix special user permissions (only if user id not 1000)
-      - APPLICATION_UID_OVERRIDE=${APPLICATION_UID_OVERRIDE:-1000}
-      - APPLICATION_GID_OVERRIDE=${APPLICATION_GID_OVERRIDE:-1000}
+      # Set user and group id
+      - APPLICATION_UID=${APPLICATION_UID:-1000}
+      - APPLICATION_GID=${APPLICATION_GID:-1000}
     working_dir: /app
 
   node:
@@ -104,7 +104,12 @@ services:
     volumes:
       - ./:/app
     working_dir: /app
-    command: tail -f /dev/null
+    environment:
+      # Set user and group id
+      - APPLICATION_UID=${APPLICATION_UID:-1000}
+      - APPLICATION_GID=${APPLICATION_GID:-1000}
+    stop_signal: SIGKILL
+    entrypoint: bash -c 'groupmod -g $$APPLICATION_GID node; usermod -u $$APPLICATION_UID node; tail -f /dev/null'
 
 networks:
   default:
