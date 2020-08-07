@@ -6,7 +6,7 @@ RUN rm -rf /var/lib/apt/lists/*
 
 RUN \
     apt-get update && \
-    apt-get install -y sudo less vim nano diffutils tree git-core bash-completion zsh htop mariadb-client iputils-ping && \
+    apt-get install -y sudo less vim nano diffutils tree git-core bash-completion zsh htop mariadb-client iputils-ping sshpass && \
     usermod -aG sudo application && \
     echo "%sudo ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
     update-alternatives --set editor /usr/bin/vim.basic && \
