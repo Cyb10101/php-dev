@@ -16,6 +16,8 @@ RUN \
     usermod -aG sudo application && \
     echo "%sudo ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
     update-alternatives --set editor /usr/bin/vim.basic && \
+    curl -fsSL "https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar" -o /usr/local/bin/wp-cli && \
+    chmod +x /usr/local/bin/wp-cli && \
     curl -fsSL https://get.docker.com/ | sh && \
     mkdir /tmp/docker-files
 
