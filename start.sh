@@ -2,8 +2,8 @@
 
 # Fix special user permissions
 if [ "$(id -u)" != "1000" ]; then
-    grep -q '^APPLICATION_UID_OVERRIDE=' .env && sed -i 's/^APPLICATION_UID_OVERRIDE=.*/APPLICATION_UID_OVERRIDE='$(id -u)'/' .env || echo 'APPLICATION_UID_OVERRIDE='$(id -u) >> .env
-    grep -q '^APPLICATION_GID_OVERRIDE=' .env && sed -i 's/^APPLICATION_GID_OVERRIDE=.*/APPLICATION_GID_OVERRIDE='$(id -g)'/' .env || echo 'APPLICATION_GID_OVERRIDE='$(id -g) >> .env
+    grep -q '^APPLICATION_UID=' .env && sed -i 's/^APPLICATION_UID=.*/APPLICATION_UID='$(id -u)'/' .env || echo 'APPLICATION_UID='$(id -u) >> .env
+    grep -q '^APPLICATION_GID=' .env && sed -i 's/^APPLICATION_GID=.*/APPLICATION_GID='$(id -g)'/' .env || echo 'APPLICATION_GID='$(id -g) >> .env
 fi;
 
 function startFunction {

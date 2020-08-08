@@ -3,6 +3,7 @@
 PHP-DEV is a small package that includes a web server, PHP and some tools needed to develop a web application.
 You can easily decide which version of PHP you want to use and whether you want to start an Apache or a Nginx webserver by setting the values in a docker-compose.yml.
 We recommend using [Cyb10101/docker-global](https://github.com/Cyb10101/docker-global) as a wrapper for your projects, since this Dockerfile has been built keeping that in mind.
+
 ## Documentation
 
 * [Nginx Reverse Proxy](docs/nginx-reverse-proxy.md)
@@ -13,7 +14,7 @@ We recommend using [Cyb10101/docker-global](https://github.com/Cyb10101/docker-g
 * [Environment variables](docs/docs/environment-variables.md)
 * [XDebug](docs/xdebug.md)
 * [Project templates](docs/project-templates.md)
-* [Fix special user permissions](docs/fix-special-user-permissions.md)
+* [Set user and group id](docs/set-user-and-group-id.md)
 * [Mail](docs/mail.md)
 * [Vulnerabilities](docs/vulnerabilities.md)
 
@@ -23,6 +24,10 @@ We recommend using [Cyb10101/docker-global](https://github.com/Cyb10101/docker-g
 * [webdevops/php-nginx-dev](https://hub.docker.com/r/webdevops/php-nginx-dev)
 * [webdevops/Dockerfile](https://github.com/webdevops/Dockerfile)
 * [pluswerk/php-dev](https://github.com/pluswerk/php-dev)
+* [Composer](https://getcomposer.org/) (`composer`)
+* [WP-Cli](https://wp-cli.org/) (`wp-cli`)
+* [NPM](https://www.npmjs.com/) (`npm`)
+* [Yarn](https://yarnpkg.com/) (`yarn`)
 
 ## Docker compose
 
@@ -94,9 +99,9 @@ services:
       #- APP_ENV=development_docker
       #- PIMCORE_ENVIRONMENT=development_docker
 
-      # Fix special user permissions (only if user id not 1000)
-      - APPLICATION_UID_OVERRIDE=${APPLICATION_UID_OVERRIDE:-1000}
-      - APPLICATION_GID_OVERRIDE=${APPLICATION_GID_OVERRIDE:-1000}
+      # Set user and group id
+      - APPLICATION_UID=${APPLICATION_UID:-1000}
+      - APPLICATION_GID=${APPLICATION_GID:-1000}
     working_dir: /app
 
   node:
@@ -104,7 +109,12 @@ services:
     volumes:
       - ./:/app
     working_dir: /app
-    command: tail -f /dev/null
+    environment:
+      # Set user and group id
+      - APPLICATION_UID=${APPLICATION_UID:-1000}
+      - APPLICATION_GID=${APPLICATION_GID:-1000}
+    stop_signal: SIGKILL
+    entrypoint: bash -c 'groupmod -g $$APPLICATION_GID node; usermod -u $$APPLICATION_UID node; tail -f /dev/null'
 
 networks:
   default:
