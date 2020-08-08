@@ -5,7 +5,8 @@ ENV \
     POSTFIX_RELAYHOST="[global-mail]:1025" \
     PHP_DISMOD="ioncube" \
     PHP_DISPLAY_ERRORS="1" \
-    PHP_MEMORY_LIMIT="-1"
+    PHP_MEMORY_LIMIT="-1" \
+    DATE_TIMEZONE="Europe/Berlin"
 
 # Bugfix apt cleanup
 RUN rm -rf /var/lib/apt/lists/*
@@ -23,7 +24,8 @@ RUN \
 
 COPY .bashrc-additional.sh /tmp/docker-files/
 COPY apache/apache.conf /opt/docker/etc/httpd/vhost.common.d/
-COPY entrypoint.d/* /entrypoint.d/
+COPY provision/entrypoint.d/* /opt/docker/provision/entrypoint.d/
+#COPY entrypoint.d/* /entrypoint.d/
 COPY bin/* /usr/local/bin/
 
 # Configure root
