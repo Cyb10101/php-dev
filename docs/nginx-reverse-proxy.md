@@ -2,23 +2,20 @@
 
 This project relies on [pluswerk/docker-global](https://github.com/pluswerk/docker-global).
 
-File docker-compose.yaml:
+File docker-compose.yml:
 
 ```yaml
 services:
   web:
     environment:
-      # A: domain.vm
-      - VIRTUAL_HOST=domain.vm
+      - VIRTUAL_HOST=domain.localhost
+      - VIRTUAL_HOST=domain.localhost,www.domain.localhost
 
-      # B: domain.vm, *.domain.vm, domain.vmd, *.domain.vmd
-      - VIRTUAL_HOST=~^(.+\.)?domain\.(vm|vmd)$$
+      # domain.localhost and www.domain.localhost
+      #- VIRTUAL_HOST=~^(www\.)?domain\.localhost$$
 
-      # C: domain.vm, www.domain.vm, domain.vmd, www.domain.vmd
-      #- VIRTUAL_HOST=~^(www\.)?domain\.(vm|vmd)$$
-
-      # D: subdomain.domain.vm, subdomain.domain.vmd
-      #- VIRTUAL_HOST=~^subdomain\.domain\.(vm|vmd)$$
+      # domain.localhost and *.domain.localhost
+      - VIRTUAL_HOST=~^(.+\.)?domain\.localhost$$
 
       - VIRTUAL_PROTO=https
       - VIRTUAL_PORT=443
@@ -29,41 +26,6 @@ Below is a clarification of the VIRTUAL_* variable.
 ## VIRTUAL_HOST: Virtual host (your domain)
 
 Through the VIRTUAL_HOST variable the nginx reverse proxy knows which domain belongs to which Docker container.
-
-##### Variant A
-
-You can specify this domain directly without regular expressions. See variant A.
-
-##### Regular expression information
-
-We do recommend the use of regular expressions.
-
-The regular expression starts with a ~ and ends with a $$. So do not wonder why it's two dollars.
-
-If you have a DNS in between, you have the option to use multiple domains.
-For example, domain.vm & domain.vmd with different IP addresses.
-One goes to the local host, the other into a virtual machine. The possibilities are endless.
-
-##### Variant B
-
-For example, if you have a TYPO3 website, you could use variant B.
-With this you can use all subdomains if you have several websites in the project.
-
-##### Variant C + D
-
-But what if you have two Docker containers with the same domain?
-
-For example, you have a Symfony website domain.vm, but also a phpbb forum on forum.domain.vm.
-This means you create two directories with a docker-compose.yml for each project.
-
-You use variant C for the Symfony website, because domain.vm and www.domain.vm should be used.
-
-For the forum you use variant D, so you have forum.domain.vm.
-
-Finally, I can say that variant C or D is the better choice in most cases.
-But since every system is different, you can of course do what suits you.
-
-File docker-compose.yml:
 
 ## VIRTUAL_PROTO & VIRTUAL_PORT: SSL
 

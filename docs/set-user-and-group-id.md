@@ -2,11 +2,11 @@
 
 As a user with a UID other than 1000, you have permissions issues with files.
 
-The variables are automatically changed in `start.sh` for `.env`. But ultimately have to be handed over `docker-compose.yaml`.
+The variables are automatically changed in `start.sh` for `.env`. But ultimately have to be handed over `docker-compose.yml`.
 
 Required: APPLICATION_UID & APPLICATION_GID
 
-docker-compose.yaml:
+docker-compose.yml:
 
 ```yaml
 services:
