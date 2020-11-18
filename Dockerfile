@@ -41,8 +41,7 @@ RUN rsync -a /root/.oh-my-zsh/ /home/application/.oh-my-zsh && \
     chown -R application:application /home/application/.oh-my-zsh
 USER application
 
-RUN cat /tmp/docker-files/.bashrc-additional.sh >> ~/.bashrc && \
-    composer global require hirak/prestissimo davidrjonas/composer-lock-diff
+RUN cat /tmp/docker-files/.bashrc-additional.sh >> ~/.bashrc
 
 COPY .shell-methods.sh .vimrc .zshrc /home/application/
 COPY .oh-my-zsh/custom/plugins/ssh-agent/ssh-agent.plugin.zsh /home/application/.oh-my-zsh/custom/plugins/ssh-agent/
