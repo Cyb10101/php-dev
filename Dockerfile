@@ -1,4 +1,4 @@
-ARG FROM=webdevops/php-apache-dev:7.4
+ARG FROM=webdevops/php-apache-dev:8.0 
 FROM $FROM
 
 ENV \
