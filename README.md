@@ -28,6 +28,8 @@ We recommend using [Cyb10101/docker-global](https://github.com/Cyb10101/docker-g
 * [WP-Cli](https://wp-cli.org/) (`wp-cli`)
 * [NPM](https://www.npmjs.com/) (`npm`)
 * [Yarn](https://yarnpkg.com/) (`yarn`)
+* [jq: JSON processor](https://stedolan.github.io/jq/) (`jq`)
+* [yq: YAML/XML processor](https://github.com/kislyuk/yq) (`yq`, `xq`)
 
 ## Docker compose
 
