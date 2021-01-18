@@ -106,10 +106,8 @@ addAlias() {
     alias ll='ls -ahl --color=auto --group-directories-first'
     alias ls='ls --color=auto --group-directories-first'
 
+    # List directory https://the.exa.website/
     if [ -x /usr/bin/exa ]; then
-        # https://the.exa.website/
-        export LS_COLORS="di=1;34"
-        export EXA_COLORS="da=1;34:gm=1;34"
         alias l='exa --group-directories-first'
         alias la='exa -a --group-directories-first'
         alias ll='exa -ahl --git --header --group --group-directories-first'
