@@ -14,7 +14,7 @@ RUN rm -rf /var/lib/apt/lists/*
 RUN \
     apt-get update && \
     apt-get install -y sudo less vim nano diffutils tree git-core bash-completion zsh htop mariadb-client iputils-ping \
-        sshpass gettext jq python3 python3-pip && \
+        sshpass gettext ncdu exa jq python3 python3-pip && \
     pip3 install yq && \
     usermod -aG sudo application && \
     echo "%sudo ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \

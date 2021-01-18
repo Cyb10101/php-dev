@@ -19,17 +19,17 @@ COLOR_LCYAN=$(echo -en '\001\033[01;36m\002')
 COLOR_WHITE=$(echo -en '\001\033[01;37m\002')
 
 # Set Terminal title
-function userTerminalTitle {
+userTerminalTitle() {
     echo -e '\033]2;'$1'\007'
 }
 
 # Set Terminal title - current folder
-function userTerminalTitlePwd {
+userTerminalTitlePwd() {
     echo -e '\033]2;'$(pwd)'\007'
 }
 
 # Set current user color
-function userColorUser {
+userColorUser() {
     if [[ $EUID -eq 0 ]]; then
         echo "${COLOR_LRED}";
     else
@@ -38,14 +38,14 @@ function userColorUser {
 }
 
 # Render Git branch for PS1
-function renderGitBranch {
+renderGitBranch() {
     if [ -f $(which git) ]; then
         echo "${COLOR_YELLOW}$(__git_ps1)"
     fi
 }
 
 # @deprecated Check if ssh-agent process is not running and start it
-function sshAgentRestart {
+sshAgentRestart() {
     if ! kill -0 ${SSH_AGENT_PID} 2> /dev/null; then
         eval `$(which ssh-agent) -s`;
     fi
@@ -53,7 +53,7 @@ function sshAgentRestart {
 
 # @deprecated Check if ssh-agent process is running and add ssh key
 # Run: sshAgentAddKey 24h ~/.ssh/id_rsa
-function sshAgentAddKey {
+sshAgentAddKey() {
     if kill -0 ${SSH_AGENT_PID} 2> /dev/null; then
         if [ -f ${2} ]; then
             if ! ssh-add -l | grep -q `ssh-keygen -lf ${2}  | awk '{print $2}'`; then
@@ -64,7 +64,7 @@ function sshAgentAddKey {
 }
 
 # @deprecated Run SSH Agent and add key 7 days
-function sshAgentAddKeyOld {
+sshAgentAddKeyOld() {
     if [ -f ~/.ssh/id_rsa ] && [ -z "$SSH_AUTH_SOCK" ] ; then
         eval `ssh-agent -s`
         ssh-add -t 604800 ~/.ssh/id_rsa
@@ -72,7 +72,7 @@ function sshAgentAddKeyOld {
 }
 
 # Style bash prompt
-function stylePS1 {
+stylePS1() {
     VAR_HOSTNAME=`hostname`
     if [ ! -z "$1" ] || [ "$1" != "" ]; then
         VAR_HOSTNAME="${1}"
@@ -86,7 +86,7 @@ function stylePS1 {
 }
 
 # Style bash prompt
-function bashCompletion {
+bashCompletion() {
   if [ -f $(which git) ]; then
       source /usr/share/bash-completion/completions/git
       source /etc/bash_completion.d/git-prompt
@@ -94,33 +94,43 @@ function bashCompletion {
 }
 
 # Shortcuts in bash
-function addAlias {
-    # color grep
+addAlias() {
+    # grep
     alias grep='grep --color=auto'
     alias egrep='egrep --color=auto'
     alias fgrep='fgrep --color=auto'
 
-    # ls
-    alias l='ls -CF --color=auto'
-    alias la='ls -A --color=auto'
-    alias ll='ls -ahlF --color=auto'
-    alias ls='ls --color=auto'
+    # List directory
+    alias l='ls -C --color=auto --group-directories-first'
+    alias la='ls -A --color=auto --group-directories-first'
+    alias ll='ls -ahl --color=auto --group-directories-first'
+    alias ls='ls --color=auto --group-directories-first'
 
-    # cd
+    if [ -x /usr/bin/exa ]; then
+        # https://the.exa.website/
+        export LS_COLORS="di=1;34"
+        export EXA_COLORS="da=1;34:gm=1;34"
+        alias l='exa --group-directories-first'
+        alias la='exa -a --group-directories-first'
+        alias ll='exa -ahl --git --header --group --group-directories-first'
+        alias ls='exa --group-directories-first'
+    fi
+
+    # Change directory
     alias ..='cd ..'
     alias cd..='cd ..'
 
-    # get current unixtime
+    # Get current unixtime
     alias unixtime='date +"%s"'
 
-    # show all open ports
+    # Show all open ports
     alias ports='netstat -tulanp'
 
-    # less defaults
+    # less
     alias less='less -FSRX'
 }
 
-function addDockerVariables {
+addDockerVariables() {
     CONTAINER_ID=$(basename $(cat /proc/1/cpuset))
 
     if test -S "/var/run/docker.sock"; then
