@@ -101,10 +101,10 @@ addAlias() {
     alias fgrep='fgrep --color=auto'
 
     # List directory
-    alias l='ls -C --color=auto --group-directories-first'
-    alias la='ls -A --color=auto --group-directories-first'
-    alias ll='ls -ahl --color=auto --group-directories-first'
-    alias ls='ls --color=auto --group-directories-first'
+    alias l='ls -vC --color=auto --group-directories-first'
+    alias la='ls -vA --color=auto --group-directories-first'
+    alias ll='ls -vahl --color=auto --group-directories-first'
+    alias ls='ls -v --color=auto --group-directories-first'
 
     # List directory https://the.exa.website/
     if [ -x /usr/bin/exa ]; then
