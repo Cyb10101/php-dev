@@ -1,4 +1,4 @@
-ARG FROM=webdevops/php-apache-dev:8.0 
+ARG FROM=webdevops/php-apache-dev:8.0
 FROM $FROM
 
 ENV \
@@ -22,7 +22,8 @@ RUN \
     curl -fsSL "https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar" -o /usr/local/bin/wp-cli && \
     chmod +x /usr/local/bin/wp-cli && \
     curl -fsSL https://get.docker.com/ | sh && \
-    mkdir /tmp/docker-files
+    mkdir /tmp/docker-files && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 COPY .bashrc-additional.sh /tmp/docker-files/
 COPY apache/apache.conf /opt/docker/etc/httpd/vhost.common.d/
@@ -60,5 +61,3 @@ RUN if [ -f /etc/apache2/envvars ]; then sed -i 's/export APACHE_RUN_GROUP=www-d
 # set nginx user group to application:
 RUN if [ -f /etc/nginx/nginx.conf ]; then sed -i 's/user www-data;/user application application;/g' /etc/nginx/nginx.conf ; fi
 
-# Cleanup
-RUN rm -rf /var/lib/apt/lists/*
