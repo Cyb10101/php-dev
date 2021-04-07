@@ -41,8 +41,16 @@ services:
       - PHP_DEBUGGER=${PHP_DEBUGGER:-none}
       #- php.xdebug.cli_color=${XDEBUG_CLI_COLOR:-1}
       #- php.xdebug.max_nesting_level=${XDEBUG_MAX_NESTING_LEVEL:-400}
+
+      # xDebug old:
       #- php.xdebug.remote_enable=${XDEBUG_REMOTE_ENABLE:-On}
       #- XDEBUG_REMOTE_CONNECT_BACK=${XDEBUG_REMOTE_CONNECT_BACK:-On}
+
+      # xDebug new:
+      #- php.xdebug.mode=${XDEBUG_MODE:-debug}
+      #- php.xdebug.discover_client_host=${XDEBUG_DISCOVER_CLIENT_HOST:-true}
+      #- php.xdebug.output_dir=${XDEBUG_OUTPUT_DIR:-/tmp}
+
       #- XDEBUG_REMOTE_AUTOSTART=${XDEBUG_REMOTE_AUTOSTART:-On}
       - XDEBUG_REMOTE_HOST=${XDEBUG_REMOTE_HOST:-}
       - XDEBUG_REMOTE_PORT=${XDEBUG_REMOTE_PORT:-9000}
