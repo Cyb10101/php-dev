@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 
 SCRIPTPATH="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 cd "${SCRIPTPATH}"
@@ -128,6 +129,46 @@ symfonyClearCache() {
     fi
 }
 
+deployImages() {
+  versions=( 8.0 7.4 7.3 7.2 7.1 )
+  servers=( apache nginx )
+
+  # Pull images
+  for version in "${versions[@]}"; do
+    for server in "${servers[@]}"; do
+      echo "# Pull ${server} ${version} ..."
+      docker pull webdevops/php-${server}-dev:${version}
+    done
+  done
+
+  # Build images
+  for version in "${versions[@]}"; do
+    for server in "${servers[@]}"; do
+      echo "# Build ${server} ${version} ..."
+      docker build --build-arg FROM=webdevops/php-${server}-dev:${version} \
+        --no-cache --file Dockerfile --tag cyb10101/php-dev:${server}-${version} .
+    done
+  done
+
+  # Push images
+  for version in "${versions[@]}"; do
+    for server in "${servers[@]}"; do
+      echo "# Push ${server} ${version} ..."
+      docker push cyb10101/php-dev:${server}-${version}
+    done
+  done
+
+  # Clean up
+  versions=( 7.3 7.2 7.1 )
+  for version in "${versions[@]}"; do
+    for server in "${servers[@]}"; do
+      echo "# Remove ${server} ${version} ..."
+      docker rmi $(docker images --filter=reference="cyb10101/php-dev:${server}-${version}" -q)
+      docker rmi $(docker images --filter=reference="webdevops/php-${server}-dev:${version}" -q)
+    done
+  done
+}
+
 runDeploy() {
     gitPullHost origin ${GIT_BRANCH}
     setPermissions
@@ -174,6 +215,9 @@ startFunction() {
         ;;
         exec-web)
             dockerComposeCmd exec -u ${APPLICATION_USER} web "${@:2}"
+        ;;
+        deploy-images)
+          deployImages
         ;;
         deploy)
             checkRoot
