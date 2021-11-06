@@ -97,13 +97,22 @@ if (!in_array($c, ['M', 'S', 'D'])) {
         vertical-align: middle;
     }
     table tr td:nth-child(1) {
-        padding-left: 5px;
+        padding-left: 1px;
         padding-right: 5px;
     }
     table tr td:nth-child(2) {
         padding-left: 0;
     }
     table tr td:nth-child(5) {
+    }
+
+    table tr td a {
+        padding-left: 4px;
+        border: 1px dashed transparent;
+        border-radius: 2px;
+    }
+    table tr td a:hover {
+        border: 1px dashed #0099CC;
     }
 
     h1 {
@@ -161,21 +170,6 @@ if (!in_array($c, ['M', 'S', 'D'])) {
     }
     <?php } ?>
     </style>
-    <script src="/.fancyindexing/jquery.min.js"></script>
-    <script>
-    jQuery(function($) {
-        $('#directory_title').html(document.title);
-
-        $('tr').each(function() {
-            if(typeof $('td a', this).attr('href') !== 'undefined') {
-                $(this).click(function() {
-                    document.location.href = $('td a', this).attr('href');
-                });
-                $(this).css('cursor', 'pointer');
-            }
-        });
-    });
-    </script>
 </head>
 
 <body>
@@ -198,3 +192,32 @@ if (!in_array($c, ['M', 'S', 'D'])) {
         <input type="text" name="P" value="<?php echo $p; ?>" placeholder="Filter: *search*" />
     </form>
 <?php } ?>
+
+<!--<script src="/.fancyindexing/jquery.min.js"></script>-->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    let directoryTitle = document.getElementById('directory_title');
+    if (directoryTitle) {
+        directoryTitle.innerText = document.title;
+    }
+
+    let tableRows = document.querySelectorAll('tr');
+    tableRows.forEach(tableRow => {
+        let link = tableRow.querySelector('td a');
+        if (link) {
+            if(typeof link.href !== 'undefined') {
+                tableRow.addEventListener('click', (event) => {
+                    if (event.target !== link) {
+                        if (event.ctrlKey) {
+                            window.open(link.href, '_blank');
+                        } else {
+                            document.location.href = link.href;
+                        }
+                    }
+                });
+                tableRow.style.cursor = 'pointer';
+            }
+        }
+    });
+}, false);
+</script>
