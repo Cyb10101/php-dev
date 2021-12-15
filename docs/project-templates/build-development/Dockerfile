@@ -1,4 +1,4 @@
-FROM cyb10101/php-dev:nginx-8.0
+FROM cyb10101/php-dev:nginx-8.1
 
 RUN apt-get update && \
     apt-get install -y nginx-extras && \

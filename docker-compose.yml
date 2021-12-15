@@ -6,7 +6,7 @@ services:
     #restart: always
 
     #build: php-dev
-    image: cyb10101/php-dev:apache-8.0
+    image: cyb10101/php-dev:apache-8.1
 
     volumes:
       - .:/app

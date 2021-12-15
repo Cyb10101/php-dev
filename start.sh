@@ -130,7 +130,7 @@ symfonyClearCache() {
 }
 
 deployImages() {
-  versions=( 8.0 7.4 7.3 7.2 7.1 )
+  versions=( 8.1 8.0 7.4 7.3 7.2 7.1 )
   servers=( apache nginx )
 
   # Pull images
