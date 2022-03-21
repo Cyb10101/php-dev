@@ -91,5 +91,5 @@ services:
 
 networks:
   default:
-    external:
-      name: global
+    external: true
+    name: global
