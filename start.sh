@@ -15,6 +15,11 @@ if [ "$(id -u)" != "1000" ]; then
     grep -q '^APPLICATION_GID=' .env && sed -i 's/^APPLICATION_GID=.*/APPLICATION_GID='$(id -g)'/' .env || echo 'APPLICATION_GID='$(id -g) >> .env
 fi;
 
+setTerminalTitle() {
+    echo -ne "\033]0;${1}\007"
+    #echo -e "\033]2;${1}\007"
+}
+
 loadEnvironmentVariables() {
     if [ -f ".env" ]; then
       source .env
@@ -136,6 +141,7 @@ deployImages() {
   # Pull images
   for version in "${versions[@]}"; do
     for server in "${servers[@]}"; do
+      setTerminalTitle "Pull ${server} ${version} ..."
       echo "# Pull ${server} ${version} ..."
       docker pull webdevops/php-${server}-dev:${version}
     done
@@ -144,6 +150,7 @@ deployImages() {
   # Build images
   for version in "${versions[@]}"; do
     for server in "${servers[@]}"; do
+      setTerminalTitle "Build ${server} ${version} ..."
       echo "# Build ${server} ${version} ..."
       docker build --build-arg FROM=webdevops/php-${server}-dev:${version} \
         --no-cache --file Dockerfile --tag cyb10101/php-dev:${server}-${version} .
@@ -153,6 +160,7 @@ deployImages() {
   # Push images
   for version in "${versions[@]}"; do
     for server in "${servers[@]}"; do
+      setTerminalTitle "Push ${server} ${version} ..."
       echo "# Push ${server} ${version} ..."
       docker push cyb10101/php-dev:${server}-${version}
     done
@@ -162,11 +170,14 @@ deployImages() {
   versions=( 7.3 7.2 7.1 )
   for version in "${versions[@]}"; do
     for server in "${servers[@]}"; do
+      setTerminalTitle "Remove ${server} ${version} ..."
       echo "# Remove ${server} ${version} ..."
       docker rmi $(docker images --filter=reference="cyb10101/php-dev:${server}-${version}" -q)
       docker rmi $(docker images --filter=reference="webdevops/php-${server}-dev:${version}" -q)
     done
   done
+
+  setTerminalTitle ""
 }
 
 runDeploy() {
