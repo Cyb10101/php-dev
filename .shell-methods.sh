@@ -129,9 +129,8 @@ addAlias() {
 }
 
 addDockerVariables() {
-    CONTAINER_ID=$(cat /etc/hostname)
-
-    if test -S "/var/run/docker.sock"; then
+    CONTAINER_ID="$(cat /container-id)"
+    if [[ ! -z "${CONTAINER_ID}" ]] && test -S "/var/run/docker.sock"; then
         DOCKER_COMPOSE_PROJECT=$(sudo docker inspect ${CONTAINER_ID} | grep '"com.docker.compose.project":' | awk '{print $2}' | tr --delete '"' | tr --delete ',')
     fi
 }
