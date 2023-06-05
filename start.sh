@@ -33,8 +33,7 @@ isContextDevelopment() {
     # Symfony
     APP_ENV=${APP_ENV:-}
     if [ "${APP_ENV}" == "dev" ]; then
-        echo 1;
-        return;
+        echo 1; return;
     fi
 
     # TYPO3
@@ -43,7 +42,7 @@ isContextDevelopment() {
         echo 1; return;
     fi
 
-    # TYPO3
+    # Wordpress
     WP_ENVIRONMENT_TYPE=${WP_ENVIRONMENT_TYPE:-}
     if [ "${WP_ENVIRONMENT_TYPE:0:11}" == "development" ]; then
         echo 1; return;
@@ -59,9 +58,18 @@ isContextDevelopment() {
 }
 
 setDockerComposeFile() {
-    DOCKER_COMPOSE_FILE=docker-compose.yml
+    local developmentSuffix=''
     if [ "$(isContextDevelopment)" == "1" ]; then
-        DOCKER_COMPOSE_FILE=docker-compose.dev.yml
+        developmentSuffix='.dev'
+    fi
+
+    DOCKER_COMPOSE_FILE="compose${developmentSuffix}.yaml"
+    if [ -e "compose${developmentSuffix}.yml" ]; then
+        DOCKER_COMPOSE_FILE="compose${developmentSuffix}.yml"
+    elif [ -e "docker-compose${developmentSuffix}.yaml" ]; then
+        DOCKER_COMPOSE_FILE="docker-compose${developmentSuffix}.yaml"
+    elif [ -e "docker-compose${developmentSuffix}.yml" ]; then
+        DOCKER_COMPOSE_FILE="docker-compose${developmentSuffix}.yml"
     fi
 }
 
@@ -148,7 +156,7 @@ symfonyClearCache() {
 }
 
 deployImages() {
-  versions=( 8.1 8.0 7.4 7.3 7.2 7.1 )
+  versions=( 8.2 8.1 8.0 7.4 7.3 7.2 7.1 )
   servers=( apache nginx )
 
   # Pull images
@@ -231,7 +239,11 @@ if [ -z "${BIN_PHP}" ]; then BIN_PHP=$(findBinaryByWhich php); fi
 if [ -z "${BIN_COMPOSER}" ]; then BIN_COMPOSER=$(findBinaryByWhich composer); fi
 GIT_BRANCH="${GIT_BRANCH:-master}"
 RUN_AS_USERNAME=${RUN_AS_USERNAME:-}
+
 setDockerComposeFile
+if [ ! -e "${DOCKER_COMPOSE_FILE}" ]; then
+    echo "Docker compose file '${DOCKER_COMPOSE_FILE}' not found!"; exit 1
+fi
 
 startFunction() {
     case ${1} in
