@@ -1,4 +1,4 @@
-FROM cyb10101/php-dev:nginx-8.2
+FROM cyb10101/php-dev:nginx-8.3
 
 # Configuration file changed
 # --force-confold:  Keep current configuration (New file: .dpkg-dist suffix)

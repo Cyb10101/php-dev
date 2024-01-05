@@ -118,3 +118,5 @@ source $ZSH/oh-my-zsh.sh
 source ~/.shell-methods.sh
 addAlias
 addDockerVariables
+addPythonVenvToPath
+

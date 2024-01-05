@@ -156,7 +156,8 @@ symfonyClearCache() {
 }
 
 deployImages() {
-  versions=( 8.2 8.1 8.0 7.4 7.3 7.2 7.1 )
+  # versions=( 8.3 8.2 8.1 8.0 7.4 7.3 7.2 7.1 )
+  versions=( 8.3 8.2 8.1 8.0 7.4 7.3 7.2 )
   servers=( apache nginx )
 
   # Pull images
@@ -189,7 +190,8 @@ deployImages() {
 
   # Clean up
   set +e
-  versions=( 7.3 7.2 7.1 )
+  # versions=( 7.4 7.3 7.2 7.1 )
+  versions=( 7.4 7.3 7.2 )
   for version in "${versions[@]}"; do
     for server in "${servers[@]}"; do
       setTerminalTitle "Remove ${server} ${version} ..."

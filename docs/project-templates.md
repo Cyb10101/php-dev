@@ -15,7 +15,7 @@ Copy the folder build-development into your project folder and change this in yo
 services:
   web:
     build: build-development
-    #image: cyb10101/php-dev:nginx-8.2 (or simply remove this line)
+    #image: cyb10101/php-dev:nginx-8.3 (or simply remove this line)
     environment:
       - VIRTUAL_HOST=~^(.+\.)?development\.localhost$$
       - WEB_DOCUMENT_ROOT=/app

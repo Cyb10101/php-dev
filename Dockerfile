@@ -1,4 +1,4 @@
-ARG FROM=webdevops/php-apache-dev:8.2
+ARG FROM=webdevops/php-apache-dev:8.3
 FROM $FROM
 
 ENV \
@@ -14,8 +14,7 @@ RUN rm -rf /var/lib/apt/lists/*
 RUN \
     apt-get update && \
     apt-get install -y sudo less vim nano diffutils tree git-core bash-completion zsh htop mariadb-client iputils-ping \
-        sshpass gettext ncdu exa jq python3 python3-pip && \
-    pip3 install yq && \
+        sshpass gettext ncdu exa jq python3 python3-venv && \
     usermod -aG sudo application && \
     echo "%sudo ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
     update-alternatives --set editor /usr/bin/vim.basic && \
@@ -41,6 +40,9 @@ COPY bin/* /usr/local/bin/
 RUN cat /tmp/docker-files/.bashrc-additional.sh >> ~/.bashrc && \
     git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 
+# Install python scripts as current user
+RUN python3 -m venv ~/.venv && ~/.venv/bin/python3 -m pip install yq
+
 COPY .shell-methods.sh .vimrc .zshrc /root/
 COPY .oh-my-zsh/custom/plugins/ssh-agent/ssh-agent.plugin.zsh /root/.oh-my-zsh/custom/plugins/ssh-agent/
 COPY .oh-my-zsh/custom/themes/cyb.zsh-theme /root/.oh-my-zsh/custom/themes/
@@ -48,9 +50,12 @@ COPY .oh-my-zsh/custom/themes/cyb.zsh-theme /root/.oh-my-zsh/custom/themes/
 # Configure user
 RUN rsync -a /root/.oh-my-zsh/ /home/application/.oh-my-zsh && \
     chown -R application:application /home/application/.oh-my-zsh
-USER application
 
+USER application
 RUN cat /tmp/docker-files/.bashrc-additional.sh >> ~/.bashrc
+
+# Install python scripts as current user
+RUN python3 -m venv ~/.venv && ~/.venv/bin/python3 -m pip install yq
 
 COPY .shell-methods.sh .vimrc .zshrc /home/application/
 COPY .oh-my-zsh/custom/plugins/ssh-agent/ssh-agent.plugin.zsh /home/application/.oh-my-zsh/custom/plugins/ssh-agent/

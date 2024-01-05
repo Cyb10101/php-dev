@@ -134,3 +134,11 @@ addDockerVariables() {
         DOCKER_COMPOSE_PROJECT=$(sudo docker inspect ${CONTAINER_ID} | grep '"com.docker.compose.project":' | awk '{print $2}' | tr --delete '"' | tr --delete ',')
     fi
 }
+
+# Add python binary directory to path environment
+addPythonVenvToPath() {
+    if [ -d "${HOME}/.venv/bin" ]; then
+        PATH="${HOME}/.venv/bin:${PATH}"
+    fi
+}
+
