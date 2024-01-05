@@ -19,7 +19,8 @@ fi
 
 # Syntax highlighting
 # https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/highlighters/main/main-highlighter.zsh
-ZSH_HIGHLIGHT_STYLES[comment]=fg=#888888,bold
+# Bugs on older "zsh --version" than 5.8.1 for example: 5.7.1
+#ZSH_HIGHLIGHT_STYLES[comment]=fg=#888888,bold
 
 # Git
 ZSH_THEME_GIT_PROMPT_SHA_BEFORE=""
