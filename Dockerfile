@@ -1,6 +1,9 @@
 ARG FROM=webdevops/php-apache-dev:8.3
 FROM $FROM
 
+# Reuse variable
+ARG FROM
+
 ENV \
     POSTFIX_RELAYHOST="[global-mail]:1025" \
     PHP_DISMOD="ioncube" \
@@ -10,6 +13,11 @@ ENV \
 
 # Bugfix apt cleanup
 RUN rm -rf /var/lib/apt/lists/*
+
+# Bufgix Nginx expired certificate ABF5BD827BD9BF62 (This is deprecated)
+RUN if [ "${FROM##*:}" = "7.4" ] || [ "${FROM##*:}" = "7.3" ] || [ "${FROM##*:}" = "7.2" ]; then \
+        curl -s https://nginx.org/keys/nginx_signing.key | apt-key add -; \
+    fi
 
 RUN \
     apt-get update && \
