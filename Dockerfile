@@ -1,4 +1,4 @@
-ARG FROM=webdevops/php-apache-dev:8.3
+ARG FROM=webdevops/php-apache-dev:8.4
 FROM $FROM
 
 # Reuse variable
@@ -14,7 +14,7 @@ ENV \
 # Bugfix apt cleanup
 RUN rm -rf /var/lib/apt/lists/*
 
-# Bufgix Nginx expired certificate ABF5BD827BD9BF62 (This is deprecated)
+# Bugfix Nginx expired certificate ABF5BD827BD9BF62 (This is deprecated)
 RUN if [ "${FROM##*:}" = "7.4" ] || [ "${FROM##*:}" = "7.3" ] || [ "${FROM##*:}" = "7.2" ]; then \
         curl -s https://nginx.org/keys/nginx_signing.key | apt-key add -; \
     fi

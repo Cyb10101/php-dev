@@ -155,10 +155,13 @@ symfonyClearCache() {
     fi
 }
 
+# ./start.sh deploy-images [8.0]...
 deployImages() {
-  # versions=( 8.3 8.2 8.1 8.0 7.4 7.3 7.2 7.1 )
-  versions=( 8.3 8.2 8.1 8.0 7.4 7.3 7.2 )
+  versions=( 8.5 8.4 8.3 8.2 8.1 ); versionsToRemove=( 8.0 7.4 7.3 7.2 7.1 )
   servers=( apache nginx )
+  if [ "$#" -gt 0 ]; then
+    versions=( "$@" )
+  fi
 
   # Pull images
   for version in "${versions[@]}"; do
@@ -190,14 +193,12 @@ deployImages() {
 
   # Clean up
   set +e
-  # versions=( 7.4 7.3 7.2 7.1 )
-  versions=( 7.4 7.3 7.2 )
-  for version in "${versions[@]}"; do
+  for version in "${versionsToRemove[@]}"; do
     for server in "${servers[@]}"; do
       setTerminalTitle "Remove ${server} ${version} ..."
       echo "# Remove ${server} ${version} ..."
-      docker rmi $(docker images --filter=reference="cyb10101/php-dev:${server}-${version}" -q)
-      docker rmi $(docker images --filter=reference="webdevops/php-${server}-dev:${version}" -q)
+      docker images --filter=reference="cyb10101/php-dev:${server}-${version}" -q | xargs -r docker image rm '{}'
+      docker images --filter=reference="webdevops/php-${server}-dev:${version}" -q | xargs -r docker image rm '{}'
     done
   done
   set -e
@@ -276,7 +277,7 @@ startFunction() {
             dockerComposeCmd exec -u ${APPLICATION_USER} web "${@:2}"
         ;;
         deploy-images)
-          deployImages
+          deployImages "${@:2}"
         ;;
         deploy)
             runDeploy
